@@ -1,61 +1,72 @@
-# 🚀 TaskFlow – Full Stack Task Management Application
+# 🚀 TaskFlow - Task Management System
 
-A production-ready **Task Management Web App** built.  
-It enables users to manage tasks efficiently with authentication, filtering, and analytics.
+A full-stack **Task Tracker Web Application** built with React + Node.js + MongoDB.  
+Users can create, manage tasks, track progress, and gain insights through analytics.
 
 ---
 
 ## 🎯 Objective
 
-Build a **Task Tracker Web Application** where users can:
-
-- Create and manage tasks  
-- Track progress  
-- Gain insights from their tasks  
+Built as per the assignment: A **Task Management System** with authentication, task CRUD operations, filtering, search, and analytics dashboard.
 
 ---
 
-## ✨ Key Features
+## ✨ Features Implemented
 
-### 🔐 Authentication & Security
-- User Signup & Login  
-- JWT-based authentication  
-- Password hashing using bcrypt  
-- Protected routes  
+### 🔐 Authentication
+- User Signup & Login
+- JWT-based authentication with secure token handling
+- Password hashing using bcrypt
+- Protected routes
 
 ### ✅ Task Management
-- Create, update, delete tasks  
-- Mark tasks as Todo / In Progress / Done  
-- Set priority (Low / Medium / High)  
-- Add due dates  
+- Create, Read, Update, Delete tasks
+- Mark tasks as **Todo / In Progress / Done**
+- Priority levels: **Low / Medium / High**
+- Due Date support
 
 ### 🔍 Filtering & Search
-- Filter tasks by **status**  
-- Filter tasks by **priority**  
-- Search tasks by **title**  
+- Filter by Status
+- Filter by Priority
+- Search by Title
+- Pagination support
 
-### 📊 Analytics Dashboard
-- Total number of tasks  
-- Completed tasks  
-- Pending tasks  
-- Completion percentage  
-- Visual insights (status & priority distribution)  
+### 📊 Analytics Dashboard (NEW - Important)
+- Total number of tasks
+- Number of completed tasks
+- Number of pending tasks
+- Completion percentage
+- **Visual Charts**:
+  - Bar chart: Tasks by Status
+  - Pie chart: Priority Distribution
+
+### 🎨 UI/UX
+- Clean, modern, responsive design
+- Dark mode toggle
+- Modal forms for create/update tasks
+- Loading states and error handling
+- Toast-like feedback
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Backend
-- Node.js  
-- Express.js  
-- MongoDB + Mongoose  
-- JWT Authentication  
-- Zod (Validation)  
+### Frontend:
+- React (Vite + TypeScript)
+- Tailwind CSS
+- Recharts (for analytics charts)
+- Axios
+- React Router
 
-### Frontend
-- React (Vite)  
-- Axios  
-- Tailwind CSS  
+### Backend:
+- Node.js + Express
+- MongoDB + Mongoose
+- JWT Authentication
+- Zod Validation
+- TypeScript
+
+### Database:
+- MongoDB (with indexes for performance)
 
 ---
 
@@ -64,26 +75,25 @@ Build a **Task Tracker Web Application** where users can:
 ```
 taskflow-app/
 │
-├── Backend/
+├── Backend/                  # Node.js + Express backend
 │   ├── src/
 │   │   ├── controllers/
 │   │   ├── models/
 │   │   ├── routes/
 │   │   ├── middleware/
-│   │   ├── utils/
 │   │   └── server.ts
 │   └── package.json
 │
-├── Frontend/
+├── Frontend/                 # React + Vite frontend
 │   ├── src/
 │   └── package.json
 ```
 
 ---
 
-## ⚙️ Installation & Setup
+## ⚙️ Setup & Installation
 
-### 1️⃣ Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/machagoutham/taskflow-app.git
@@ -92,121 +102,130 @@ cd taskflow-app
 
 ---
 
-### 2️⃣ Backend Setup
+### 2. Backend Setup
 
 ```bash
 cd Backend
 npm install
+```
+
+Create a `.env` file inside `Backend/`:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_strong_secret_key_here
+JWT_EXPIRES_IN=7d
+```
+
+Run backend:
+
+```bash
 npm run dev
 ```
 
 ---
 
-### 3️⃣ Frontend Setup
+### 3. Frontend Setup
 
 ```bash
-cd Frontend
+cd ../Frontend
 npm install
 npm run dev
 ```
 
 ---
 
-## 🔑 Environment Variables
+### 4. Access the App
 
-Create a `.env` file inside **Backend**:
+- Frontend: http://localhost:5173  
+- Backend: http://localhost:5000  
 
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-JWT_EXPIRES_IN=7d
-```
-
----
-
-## 🌐 Running URLs
-
-- Frontend → http://localhost:5173  
-- Backend → http://localhost:5000  
+> Note: Create a free MongoDB Atlas cluster and replace `MONGO_URI`.
 
 ---
 
 ## 🔗 API Endpoints
 
-### Auth
-- POST `/api/auth/register` → Register user  
-- POST `/api/auth/login` → Login user  
+### Auth Routes
 
-### Tasks
-- GET `/api/tasks` → Get all tasks  
-- POST `/api/tasks` → Create task  
-- GET `/api/tasks/:id` → Get single task  
-- PUT `/api/tasks/:id` → Update task  
-- DELETE `/api/tasks/:id` → Delete task  
+| Method | Endpoint             | Description        | Protected |
+|--------|---------------------|--------------------|----------|
+| POST   | /api/auth/register  | User registration  | No       |
+| POST   | /api/auth/login     | User login         | No       |
 
 ---
 
-## 🏗️ Architecture
+### Task Routes (Protected)
 
-Client → Route → Controller → Model → Database → Response  
-
-- Controllers handle business logic  
-- Models define schema & DB operations  
-- Middleware handles authentication & errors  
+| Method | Endpoint              | Description                    |
+|--------|----------------------|--------------------------------|
+| GET    | /api/tasks           | Get tasks (with filters)       |
+| POST   | /api/tasks           | Create new task                |
+| GET    | /api/tasks/:id       | Get single task                |
+| PUT    | /api/tasks/:id       | Update task                    |
+| DELETE | /api/tasks/:id       | Delete task                    |
+| GET    | /api/tasks/analytics | Get analytics + charts data    |
 
 ---
 
-## 🧠 Design Decisions
+## 🏗️ Design Decisions
 
-- JWT for stateless authentication  
-- MongoDB for flexible schema design  
-- Zod for strong validation  
-- Modular folder structure for scalability  
-- Middleware-based authentication  
+- TypeScript everywhere for better type safety and maintainability  
+- Zod for runtime validation on backend  
+- Context API for simple state management (Auth)  
+- Recharts for clean, responsive analytics charts  
+- Tailwind CSS for fast, consistent UI + dark mode  
+- Mongoose indexes on frequently queried fields (user, status, priority)  
+- Separate frontend and backend folders for clear architecture  
 
 ---
 
 ## 📸 Screenshots
 
-### 🔐 Authentication
-![Login/Register](https://github.com/user-attachments/assets/22106a7d-5dfe-4668-945c-e2d20aa894dd)
+### 🔐 Login / Register
+![Login Page](https://github.com/user-attachments/assets/d394953b-a15c-4a18-a601-f0f77a1affbd)
+![Register Page](https://github.com/user-attachments/assets/5a18b780-f2b3-4c83-808e-982aec8aeae5)
 
 ---
 
-### 📊 Dashboard & Analytics
-![Filters](https://github.com/user-attachments/assets/5e5007bb-228d-43a4-8beb-e076944b6c2e)
+### 📊 Analytics Dashboard (Light Mode)
+![Dashboard Overview](https://github.com/user-attachments/assets/f732f836-d76c-4dd1-a83b-715abd8303bc)
+![Tasks View](https://github.com/user-attachments/assets/24496d52-5a90-407d-be81-92180ccd6b15)
+![Filtered Tasks](https://github.com/user-attachments/assets/ae380b07-65a3-4d45-8be1-40de7c5e675a)
 
 ---
 
-### ➕ Create Task
-![Create Task](https://github.com/user-attachments/assets/b6617fac-8122-4101-a02c-75b11e9b3f75)
+### 🌙 Dark Mode Dashboard
+![Dark Mode Dashboard](https://github.com/user-attachments/assets/f101ca1e-4973-4e59-971a-9a8cd6277d23)
 
 ---
 
-### 📈 Dashboard View
-![Dashboard](https://github.com/user-attachments/assets/cc5fa8e3-c27f-4e52-a9a5-110f1899e650)
+### 📋 Task List with Filters
+![Task List](https://github.com/user-attachments/assets/ac739af6-b0aa-464d-b396-a494ff8ff6af)
+![Filtered View](https://github.com/user-attachments/assets/39e49766-299b-4cc6-92f7-8562e5a614a7)
+![Advanced Filters](https://github.com/user-attachments/assets/b0dcba73-521c-4201-b394-034a06708ce8)
 
+---
+### ➕ Create Task Modal
+<img width="1919" height="1078" alt="Screenshot 2026-03-26 000113" src="https://github.com/user-attachments/assets/c5e3693a-7dfe-4e29-9138-2a0a63c4382c" />
+
+<img width="1919" height="1079" alt="Screenshot 2026-03-26 212637" src="https://github.com/user-attachments/assets/72eaf710-7ef4-4bc7-a54a-eb96684b01f8" />
 ---
 
 ## 🚀 Highlights
 
-- Clean modular backend architecture  
-- Scalable REST API design  
-- Strong validation using Zod  
-- Secure authentication flow  
-- Real-world dashboard analytics  
-- Pagination & sorting support  
-- Full end-to-end MERN implementation  
+- Fully responsive and modern UI with dark mode  
+- Real-time analytics with beautiful charts  
+- Proper error handling and validation  
+- Production-ready code structure  
+- Meets all core and enhancement requirements  
 
 ---
 
 ## 👨‍💻 Author
 
 **Goutham M**  
-🔗 https://github.com/machagoutham  
+GitHub: https://github.com/machagoutham
 
----
-
-## ⭐ If you like this project
-Give it a ⭐ on GitHub!
+⭐ If you like this project, please give it a star!
