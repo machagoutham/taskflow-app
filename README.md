@@ -1,111 +1,185 @@
-# 🚀 TaskFlow - Task Management App
+# 🚀 TaskFlow – Full Stack Task Management Application
 
-A full-stack Task Management Web Application built using the MERN stack.  
-It allows users to create, manage, and track tasks with authentication and analytics.
+A production-ready **Task Management Web App** built as part of a hiring assignment.
+It enables users to manage tasks efficiently with authentication, filtering, and analytics.
 
 ---
 
-## 📌 Features
+## 🎯 Objective
 
-### 🔐 Authentication
-- User Signup & Login
-- JWT-based authentication
-- Secure password hashing (bcrypt)
+Build a **Task Tracker Web Application** where users can:
+
+* Create and manage tasks
+* Track progress
+* Gain insights from their tasks
+
+---
+
+## ✨ Key Features
+
+### 🔐 Authentication & Security
+
+* User Signup & Login
+* JWT-based authentication
+* Password hashing using bcrypt
+* Protected routes
+
+---
 
 ### ✅ Task Management
-- Create, update, delete tasks
-- Set status (Todo / In Progress / Done)
-- Set priority (Low / Medium / High)
-- Add due date
+
+* Create, update, delete tasks
+* Mark tasks as Todo / In Progress / Done
+* Set priority (Low / Medium / High)
+* Add due dates
+
+---
 
 ### 🔍 Filtering & Search
-- Filter by status
-- Filter by priority
-- Search tasks by title
+
+* Filter tasks by **status**
+* Filter tasks by **priority**
+* Search tasks by **title**
+
+---
 
 ### 📊 Analytics Dashboard
-- Total tasks
-- Completed tasks
-- Pending tasks
-- Completion percentage
+
+* Total number of tasks
+* Completed tasks
+* Pending tasks
+* Completion percentage
+* Visual insights (status & priority distribution)
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Backend
-- Node.js
-- Express.js
-- MongoDB + Mongoose
-- JWT Authentication
-- Zod Validation
+
+* Node.js
+* Express.js
+* MongoDB + Mongoose
+* JWT Authentication
+* Zod (Validation)
 
 ### Frontend
-- React.js (Vite)
-- Axios
-- Tailwind CSS
+
+* React (Vite)
+* Axios
+* Tailwind CSS
 
 ---
 
 ## 📁 Project Structure
+
+```
 taskflow-app/
 │
 ├── Backend/
-│ ├── src/
-│ │ ├── controllers/
-│ │ ├── models/
-│ │ ├── routes/
-│ │ ├── middleware/
-│ │ └── server.ts
-│ └── package.json
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── middleware/
+│   │   ├── utils/
+│   │   └── server.ts
+│   └── package.json
 │
 ├── Frontend/
-│ ├── src/
-│ └── package.json
-
+│   ├── src/
+│   └── package.json
+```
 
 ---
 
 ## ⚙️ Installation & Setup
 
-### 1️⃣ Clone the repository
+### 1️⃣ Clone the Repository
+
 ```bash
 git clone https://github.com/machagoutham/taskflow-app.git
 cd taskflow-app
+```
 
-2️⃣ Backend Setup
+---
+
+### 2️⃣ Backend Setup
+
+```bash
 cd Backend
 npm install
 npm run dev
+```
 
-3️⃣ Frontend Setup
+---
+
+### 3️⃣ Frontend Setup
+
+```bash
 cd Frontend
 npm install
 npm run dev
+```
 
-🔑 Environment Variables
+---
 
-Create .env file in Backend:
+## 🔑 Environment Variables
 
+Create a `.env` file inside **Backend**:
+
+```env
 PORT=5000
-MONGO_URI=your_mongodb_connection
-JWT_SECRET=your_secret
+MONGO_URI=mongodb://machagoutham:Goutham1234@ac-3dewq11-shard-00-00.ttnbdam.mongodb.net:27017,ac-3dewq11-shard-00-01.ttnbdam.mongodb.net:27017,ac-3dewq11-shard-00-02.ttnbdam.mongodb.net:27017/taskdb?ssl=true&replicaSet=atlas-lemye6-shard-0&authSource=admin&retryWrites=true&w=majority
+JWT_SECRET=mysecret123
 JWT_EXPIRES_IN=7d
+```
 
-🌐 Running URLs
-Frontend → http://localhost:5173
-Backend → http://localhost:5000
+---
 
-Screenshots
+## 🌐 Running URLs
 
-<img width="1916" height="1073" alt="Screenshot 2026-03-25 235910" src="https://github.com/user-attachments/assets/22106a7d-5dfe-4668-945c-e2d20aa894dd" />
+* Frontend → http://localhost:5173
+* Backend → http://localhost:5000
 
-<img width="1919" height="1079" alt="Screenshot 2026-03-26 000039" src="https://github.com/user-attachments/assets/74d3f846-73ca-4ec5-9c63-a433396fe331" />
+---
 
+## 📸 Screenshots
 
-<img width="1919" height="1079" alt="Screenshot 2026-03-26 000039" src="https://github.com/user-attachments/assets/5e5007bb-228d-43a4-8beb-e076944b6c2e" />
+### 🔐 Authentication
 
-<img width="1919" height="1079" alt="Screenshot 2026-03-26 000130" src="https://github.com/user-attachments/assets/334813bd-a648-4eea-a598-f1b41d3c9614" />
+![Login/Register](https://github.com/user-attachments/assets/22106a7d-5dfe-4668-945c-e2d20aa894dd)
 
-<img width="1919" height="1079" alt="Screenshot 2026-03-26 000125" src="https://github.com/user-attachments/assets/a7630b03-2881-4ee3-ab71-7804428a0e7d" />
+---
 
+### 📊 Dashboard & Analytics
+
+![Filters](https://github.com/user-attachments/assets/5e5007bb-228d-43a4-8beb-e076944b6c2e)
+
+---
+
+### ➕ Create Task
+
+![Create Task](https://github.com/user-attachments/assets/b6617fac-8122-4101-a02c-75b11e9b3f75)
+
+---
+
+![Dashboard](https://github.com/user-attachments/assets/cc5fa8e3-c27f-4e52-a9a5-110f1899e650)
+
+## 🚀 Highlights (Why this project stands out)
+
+* Clean modular backend architecture
+* Scalable REST API design
+* Strong validation using Zod
+* Secure authentication flow
+* Real-world dashboard analytics
+* Pagination support
+* Sorting (date / priority)
+* Full end-to-end MERN implementation
+
+---
+
+## 👨‍💻 Author
+
+**Goutham M**
+🔗 GitHub: https://github.com/machagoutham
