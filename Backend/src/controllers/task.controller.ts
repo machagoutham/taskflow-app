@@ -83,25 +83,58 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
   }
 };
 
-// Analytics
+// FINAL FIXED getAnalytics - ObjectId Fix
 export const getAnalytics = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const total = await Task.countDocuments({ user: req.user.id });
-    const completed = await Task.countDocuments({ user: req.user.id, status: 'Done' });
+    const userId = req.user.id;   // this is string
+    const mongoose = require('mongoose');
+
+    console.log("📌 User ID from JWT:", userId);
+
+    // Convert to ObjectId for proper matching
+    const userObjectId = new mongoose.Types.ObjectId(userId);
+
+    const total = await Task.countDocuments({ user: userObjectId });
+    const completed = await Task.countDocuments({ user: userObjectId, status: 'Done' });
     const pending = total - completed;
     const completionPercentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
-    // For charts: count by status
-    const statusCounts = await Task.aggregate([
-      { $match: { user: req.user.id } },
+    // Debug: Check actual tasks
+    const allUserTasks = await Task.find({ user: userObjectId }).select('title status priority').limit(5);
+    console.log("📌 Total tasks found for user:", allUserTasks.length);
+    if (allUserTasks.length > 0) {
+      console.log("📌 Sample task user field:", allUserTasks[0].user);
+    }
+
+    // Aggregation with proper ObjectId
+    const statusCountsRaw = await Task.aggregate([
+      { $match: { user: userObjectId } },
       { $group: { _id: '$status', count: { $sum: 1 } } }
     ]);
 
-    // Count by priority
-    const priorityCounts = await Task.aggregate([
-      { $match: { user: req.user.id } },
+    const priorityCountsRaw = await Task.aggregate([
+      { $match: { user: userObjectId } },
       { $group: { _id: '$priority', count: { $sum: 1 } } }
     ]);
+
+    console.log("🔍 Raw Status Counts:", statusCountsRaw);
+    console.log("🔍 Raw Priority Counts:", priorityCountsRaw);
+
+    // Force all categories
+    const allStatuses = ['Todo', 'In Progress', 'Done'];
+    const statusCounts = allStatuses.map(status => {
+      const found = statusCountsRaw.find((s: any) => s._id === status);
+      return { _id: status, count: found ? Number(found.count) : 0 };
+    });
+
+    const allPriorities = ['Low', 'Medium', 'High'];
+    const priorityCounts = allPriorities.map(priority => {
+      const found = priorityCountsRaw.find((p: any) => p._id === priority);
+      return { _id: priority, count: found ? Number(found.count) : 0 };
+    });
+
+    console.log("✅ Final Status Counts sent to frontend:", statusCounts);
+    console.log("✅ Final Priority Counts sent to frontend:", priorityCounts);
 
     res.json({
       success: true,
@@ -115,6 +148,7 @@ export const getAnalytics = async (req: Request, res: Response, next: NextFuncti
       },
     });
   } catch (error) {
+    console.error("Analytics Error:", error);
     next(error);
   }
 };
